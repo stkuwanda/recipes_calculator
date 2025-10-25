@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'recipe.dart';
 
 void main() {
   runApp(const RecipesCalculatorApp());
@@ -36,7 +37,22 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
-      body: SafeArea(child: Container()),
+      body: SafeArea(
+        child: ListView.builder(
+          itemCount: Recipe.samples.length,
+          itemBuilder: (BuildContext context, int index) =>
+              buildRecipeCard(Recipe.samples[index]),
+        ),
+      ),
     );
   }
+
+  Widget buildRecipeCard(Recipe recipe) => Card(
+    child: Column(
+      children: <Widget>[
+        Image(image: AssetImage(recipe.imageUrl, bundle: null)),
+        Text(recipe.label),
+      ],
+    ),
+  );
 }
