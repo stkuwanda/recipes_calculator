@@ -1,3 +1,4 @@
+// A class to represent a Recipe with a label and an image URL
 class Recipe {
   Recipe({
     required this.label,
@@ -7,6 +8,7 @@ class Recipe {
   String label;
   String imageUrl;
 
+  // A static list of sample recipes
   static List<Recipe> samples = [
     Recipe(
       label: 'Spaghetti and Meatballs',
