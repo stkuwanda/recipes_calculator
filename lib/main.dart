@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 import 'recipe.dart';
 
 void main() {
-  runApp(const RecipesCalculatorApp());
+  runApp(const RecipesCalculatorApp()); // Entry point of the application
 }
 
+// Root widget of the application
 class RecipesCalculatorApp extends StatelessWidget {
   const RecipesCalculatorApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = ThemeData();
+    final ThemeData theme = ThemeData(); // Base theme data
 
+    // MaterialApp is a convenience widget that wraps a number of widgets
     return MaterialApp(
       title: 'Recipe Calculator',
       theme: theme.copyWith(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
-      ),
-      home: const MyHomePage(title: 'Calculate Recipes'),
+      ), // Customizing the theme with a seed color
+      home: const MyHomePage(title: 'Calculate Recipes'), // Home page of the app
     );
   }
 }
