@@ -15,7 +15,7 @@ class RecipeDetail extends StatefulWidget {
 }
 
 class _RecipeDetailState extends State<RecipeDetail> {
-  // TODO: Add _sliderVal here
+  int _sliderVal = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +45,26 @@ class _RecipeDetailState extends State<RecipeDetail> {
                   ) = widget
                       .recipe
                       .ingredients[index]; // destructuring assignment to extract quantity and measure from the Ingredient object
-                  return Text('$qty $msr $nam'); // Text using string interpolation to display runtime values
+                  return Text(
+                    '$qty $msr $nam',
+                  ); // Text using string interpolation to display runtime values
                 },
               ), // ListView with one row per ingredient
             ), // Expanded widget expands to fill the space in a Column
-            // TODO: Add Slider() here
+            Slider(
+              min: 1, // sets the minimum value of the slider
+              max: 10, // sets the maximum value of the slider
+              divisions: 9, // sets the number of descrete divisions on the slider
+              label: '${_sliderVal * widget.recipe.servings} servings', // label that shows the current value of the slider multiplied by the original servings
+              value: _sliderVal.toDouble(), // current value of the slider, converted to double
+              onChanged: (newValue) {
+                setState(() {
+                  _sliderVal = newValue.round(); // uses round() to convert the double slider value to an int then saves it in _sliderVal
+                }); // calls setState to notify the framework that the state has changed and the UI needs to be rebuilt
+              }, // onChanged callback runs when the slider is moved
+              activeColor: Colors.green,
+              inactiveColor: Colors.black,
+            ), // Slider presents a round thumb that can be dragged along a track to change a value
           ],
         ),
       ), // SafeArea keeps app from getting to close to os interfaces eg notch or interactive areas
