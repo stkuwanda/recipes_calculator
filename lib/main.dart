@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'recipe.dart';
+import 'recipe_detail.dart';
 
 void main() {
   runApp(const RecipesCalculatorApp()); // Entry point of the application
@@ -20,7 +21,9 @@ class RecipesCalculatorApp extends StatelessWidget {
       theme: theme.copyWith(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
       ), // Customizing the theme with a seed color
-      home: const MyHomePage(title: 'Calculate Recipes'), // Home page of the app
+      home: const MyHomePage(
+        title: 'Calculate Recipes',
+      ), // Home page of the app
     );
   }
 }
@@ -42,8 +45,22 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: ListView.builder(
           itemCount: Recipe.samples.length,
-          itemBuilder: (BuildContext context, int index) =>
-              buildRecipeCard(Recipe.samples[index]),
+          itemBuilder: (BuildContext context, int index) => GestureDetector(
+            onTap: () {
+              // Navigate to the detail page when a recipe card is tapped
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return RecipeDetail(recipe: Recipe.samples[index]);
+                  }, // builder callback returns the new page widget
+                ), // MaterialPageRoute creates a route that transitions to the new page
+              ); // Navigate.push pushes a new route onto the stack
+            }, // onTap callback runs when a card is tapped
+            child: buildRecipeCard(
+              Recipe.samples[index],
+            ), // child widget defines the area where the gesture is active
+          ), // Detects taps on the recipe cards
         ),
       ),
     );
